@@ -10,97 +10,9 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.urls import reverse
 
-from django.contrib.auth import get_user_model
-from django.http import HttpResponse
-
-def create_admin(request):
-    User = get_user_model()
-
-    if not User.objects.filter(email="admin@gmail.com").exists():
-        User.objects.create_superuser(
-            email="admin@gmail.com",
-            password="admin123"
-        )
-        return HttpResponse("Admin created")
-
-    return HttpResponse("Admin already exists")
 
 
 
-
-
-def import_tmdb_movies(request):
-    if not settings.TMDB_BASE_URL:
-        return HttpResponse('not therr')
-    url = f"{settings.TMDB_BASE_URL}/discover/movie"
-
-
-
-    languages = ['en',"ta", "ml", "te", "hi"]
-    GENRE_MAP = {
-    28: "Action",
-    12: "Adventure",
-    16: "Animation",
-    35: "Comedy",
-    80: "Crime",
-    18: "Drama",
-    10749: "Romance",
-    53: "Thriller",
-    878: "Sci-Fi",
-    27: "Horror"
-}
-    
-    for lang in languages:
-        for page in range(1,6):
-            params = {
-        "api_key": settings.TMDB_API_KEY,
-        "with_original_language": lang,
-         "sort_by": "popularity.desc",
-         "primary_release_date.gte": "2020-01-01",
-         "vote_count.gte": 100,
-        "page": page
-        }
-
-            response = requests.get(url, params=params)
-
-            data = response.json()
-            movies = data.get('results',[])
-
-            genre_names = set()
-            for m in movies:
-                for gid in m["genre_ids"]:
-                    if gid in GENRE_MAP:
-                        genre_names.add(GENRE_MAP[gid])
-
-                genre_string = ", ".join(genre_names)
-
-                if not m.get(["poster_path"]) or not m.get(['backdrop_path']):
-                    continue
-                movie = Movie.objects.create(
-                title=m["title"],
-                description=m["overview"],
-                poster=m["poster_path"],
-                backdrop=m["backdrop_path"],
-                rating=m["vote_average"],
-                release_date=m["release_date"],
-                language=m["original_language"],
-                popularity=m["popularity"],
-                genre=genre_string
-            )
-            # Fetch Cast
-                cast_url = f"https://api.themoviedb.org/3/movie/{m['id']}/credits"
-                cast_response = requests.get(cast_url, params=params)
-                cast_data = cast_response.json().get(["cast"],[])[:6]
-                for actor in cast_data:
-                    if not actor["profile_path"]:
-                      continue
-                    Cast.objects.create(
-                    movie=movie,
-                    name=actor["name"],
-                    character=actor["character"],
-                    image=actor["profile_path"]
-                )      
-    return HttpResponse('added')
 
 def home(request):
     if request.user.is_authenticated:
