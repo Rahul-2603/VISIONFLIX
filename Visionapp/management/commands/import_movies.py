@@ -28,7 +28,7 @@ class Command(BaseCommand):
         }
 
         for lang in languages:
-            for page in range(1,6):
+            for page in range(1,11):
 
                 params = {
                     "api_key": settings.TMDB_API_KEY,
