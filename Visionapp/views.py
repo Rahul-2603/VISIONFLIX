@@ -30,8 +30,11 @@ def create_admin(request):
 
 
 def import_tmdb_movies(request):
-
+    if not settings.TMDB_BASE_URL:
+        return HttpResponse('not therr')
     url = f"{settings.TMDB_BASE_URL}/discover/movie"
+
+
 
     languages = ['en',"ta", "ml", "te", "hi"]
     GENRE_MAP = {
@@ -47,8 +50,6 @@ def import_tmdb_movies(request):
     27: "Horror"
 }
     
-
-
     for lang in languages:
         for page in range(1,11):
             params = {
@@ -63,8 +64,7 @@ def import_tmdb_movies(request):
             response = requests.get(url, params=params)
 
             data = response.json()
-
-            movies = data["results"]
+            movies = data.get('results',[])
 
             genre_names = set()
             for m in movies:
@@ -74,9 +74,9 @@ def import_tmdb_movies(request):
 
                 genre_string = ", ".join(genre_names)
 
-                if not m["poster_path"] or not m['backdrop_path']:
+                if not m.get(["poster_path"]) or not m.get(['backdrop_path']):
                     continue
-                movie = Movie.objects.create(
+                movie = Movie.objects.get_or_create(
                 title=m["title"],
                 description=m["overview"],
                 poster=m["poster_path"],
@@ -90,7 +90,7 @@ def import_tmdb_movies(request):
             # Fetch Cast
                 cast_url = f"https://api.themoviedb.org/3/movie/{m['id']}/credits"
                 cast_response = requests.get(cast_url, params=params)
-                cast_data = cast_response.json()["cast"][:6]
+                cast_data = cast_response.json().get(["cast"],[])[:6]
                 for actor in cast_data:
                     if not actor["profile_path"]:
                       continue
