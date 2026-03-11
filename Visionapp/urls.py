@@ -18,5 +18,4 @@ urlpatterns = [
     path('Mylist/',my_list,name='Mylist'),
     path('add_list/<uuid:movie_id>/',add_list,name='add_list'),
     path('del_list/<uuid:movie_id>/',del_list,name='del_list'),
-    path("create-admin/",create_admin),
     ]

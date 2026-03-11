@@ -51,7 +51,7 @@ def import_tmdb_movies(request):
 }
     
     for lang in languages:
-        for page in range(1,11):
+        for page in range(1,6):
             params = {
         "api_key": settings.TMDB_API_KEY,
         "with_original_language": lang,
@@ -76,7 +76,7 @@ def import_tmdb_movies(request):
 
                 if not m.get(["poster_path"]) or not m.get(['backdrop_path']):
                     continue
-                movie = Movie.objects.get_or_create(
+                movie = Movie.objects.create(
                 title=m["title"],
                 description=m["overview"],
                 poster=m["poster_path"],
