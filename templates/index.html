@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section text-center text-white">
+
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+
+        <h1 class="display-4 fw-bold">
+            Unlimited Movies, TV Shows and More
+        </h1>
+
+        <p class="lead">
+            Watch anywhere. Cancel anytime.
+        </p>
+
+        <p>
+            Ready to watch? Enter your email to create or restart your membership.
+        </p>
+
+        <div class="row justify-content-center mt-4">
+
+            <div class="col-md-4">
+                <input type="email" class="form-control" placeholder="Email Address">
+            </div>
+
+            <div class="col-md-2">
+                <a href="{% url 'account_login' %}" class="btn btn-danger w-100">
+                    Get Started
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Features -->
+<section class="container py-5 text-light">
+
+    <div class="row align-items-center mb-5">
+
+        <div class="col-md-6">
+            <h2>Enjoy on your TV</h2>
+            <p>
+                Watch on Smart TVs, Playstation, Xbox, Chromecast,
+                Apple TV and more.
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png" class="img-fluid">
+        </div>
+
+    </div>
+
+
+    <div class="row align-items-center mb-5">
+
+        <div class="col-md-6">
+            <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg"
+                class="img-fluid">
+        </div>
+
+        <div class="col-md-6">
+            <h2>Download your shows to watch offline</h2>
+            <p>
+                Save your favourites easily and always have something to watch.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="container py-5 ">
+
+    <h2 class="text-center mb-4 text-light">
+        Frequently Asked Questions
+    </h2>
+
+    <div class="accordion" id="faq">
+
+        <div class="accordion-item">
+
+            <h2 class="accordion-header">
+                <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">
+
+                    What is Netflix?
+
+                </button>
+            </h2>
+
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+
+                <div class="accordion-body">
+                    Netflix is a streaming service offering TV shows, movies and more.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="accordion-item">
+
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">
+
+                    How much does Netflix cost?
+
+                </button>
+            </h2>
+
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq">
+
+                <div class="accordion-body">
+                    Plans range from ₹199 to ₹799 per month.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

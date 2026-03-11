@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="login-section position-relative">
+
+    <div class="login-overlay"></div>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+        <div class="card login-card">
+
+            <div class="card-body">
+
+                <h2 class="text-center mb-4">Sign Up</h2>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{form.errors.email}}
+                        {{form.errors.password1}}
+                        {{form.errors.password2}}
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-5">
+
+                      
+
+                        <input type="email" name="email" id="id_email" class="form-control" placeholder="Enter email">
+
+                    </div>
+
+                    <div class="mb-5">
+
+                       
+
+                        <input type="password" name="password1" id="id_password1" class="form-control"
+                            placeholder="Enter password">
+
+                    </div>
+
+                    <div class="mb-5">
+
+                  
+
+                        <input type="password" name="password2" id="id_password2" class="form-control"
+                            placeholder="Confirm password">
+
+                    </div>
+
+                    <button class="btn btn-danger w-100">
+                        Sign Up
+                    </button>
+
+                    <div class="text-center mt-5">
+
+                        <p>
+                            Already have an account?
+                            <a class="text-danger" href="{% url 'account_login' %}">
+                                Log In
+                            </a>
+                        </p>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

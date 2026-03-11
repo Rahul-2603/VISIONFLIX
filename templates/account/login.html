@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<style>
+    body {
+        background: linear-gradient(rgba(112, 9, 9, 0.978), #000001);
+
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        background-attachment: fixed;
+    }
+
+    .bt {
+        background-color: red;
+        color: aliceblue;
+        border-radius: 10px;
+    }
+</style>
+<section class="login-section position-relative">
+
+    
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+        <div class="card login-card">
+
+            <div class="card-body">
+
+                <h2 class="text-center mb-4">Log In</h2>
+
+                <form method="POST"  action="{% url 'account_login' %}">
+
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                    <div class="alert alert-danger text-center">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-5">
+                                    <input type="text" name="login" id="id_login" class="form-control" placeholder="Enter email">
+                    </div>
+                    <div class="mb-5"> 
+                        <input type="password" name="password" id="id_password" class="form-control"
+                            placeholder="Enter password">
+                    </div>
+                    <button class="btn btn-danger w-100" type="submit">
+                        Log In
+                    </button>
+
+                    <div class="text-center mt-3">
+                        <p>
+                             Don't have an account?
+                            <a class="nav-link text-danger" href="{% url 'account_signup' %}">
+                                Sign Up
+                            </a>
+                        </p>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

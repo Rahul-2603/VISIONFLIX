@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+   
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+  
+    <nav class="navbar navbar-dark bg-black fixed-top navbar-expand-lg">
+
+        <div class="container-fluid">
+
+            
+            <a class="navbar-brand fw-bold text-danger fs-2" href="{% url 'Visionapp:movie-list' %}">
+                VISIONFLIX
+            </a>
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+               
+                <div class="d-flex align-items-center gap-3 mx-auto">
+
+                    <form method="GET" action="{% url 'Visionapp:search' %}">
+                        <select name="language" class="form-select" onchange="this.form.submit()">
+                            <option value="">All</option>
+                            <option value="en">English</option>
+                            <option value="ta">Tamil</option>
+                            <option value="ml">Malayalam</option>
+                            <option value="te">Telugu</option>
+                            <option value="hi">Hindi</option>
+                        </select>
+                    </form>
+
+                    <form method="GET" action="{% url 'Visionapp:search' %}" class="input-group">
+                        <input type="text" name="search" placeholder="Search movie..." class="form-control">
+                        <button class="btn btn-danger">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+
+                </div>
+
+              
+                <div class="d-flex align-items-center gap-4 text-light">
+
+                    {% if request.user.is_authenticated %}
+
+                    <a class="nav-link text-light text-center" href="{% url 'Visionapp:movie-list' %}">
+                        <i class="bi bi-house-door-fill fs-5"></i>
+                        <div style="font-size:12px;">Home</div>
+                    </a>
+
+                    <a href="{% url 'Visionapp:Mylist' %}" class="nav-link text-light text-center">
+                        <i class="bi bi-star-fill text-danger fs-5"></i>
+                        <div style="font-size:12px;">My List</div>
+                    </a>
+
+                    <a href="{% url 'account_logout' %}" class="btn btn-danger">
+                        Logout
+                    </a>
+
+                    {% else %}
+
+                    <a href="{% url 'account_login' %}" class="btn btn-danger">
+                        Sign In
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+    <div style="margin-top:80px">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

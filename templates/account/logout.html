@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="movie-hero d-flex align-items-center">
+    <div class="container text-center  mt-5">
+
+        <h2 class="text-light">Are you sure you want to logout?</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger mt-3 btn-lg">
+                Logout
+            </button>
+        </form>
+        <a href="{% url 'Visionapp:movie-list' %}">
+            <button class="btn btn-light btn-sm mt-3 "> Back</button>
+        </a>
+
+
+    </div>
+</section>
+
+{% endblock %}

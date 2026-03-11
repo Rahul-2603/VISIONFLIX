@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="bg-dark text-white">
+
+    {{ movie|json_script:"movie_data" }}
+
+    <div class="container-fluid p-0">
+
+        <video controls class="video-player w-100"></video>
+
+    </div>
+
+</main>
+
+
+<script>
+
+    const videoEl = document.querySelector('.video-player')
+
+    const movie_data = JSON.parse(
+        document.getElementById('movie_data').textContent
+    )
+
+    const url = new URL(window.location.href)
+
+    const video_param = parseInt(url.searchParams.get('epi'))
+        ? parseInt(url.searchParams.get('epi'))
+        : 0
+
+    videoEl.setAttribute(
+        "src",
+        `http://localhost:8000/media/${movie_data[video_param].file}`
+    )
+
+</script>
+
+{% endblock %}

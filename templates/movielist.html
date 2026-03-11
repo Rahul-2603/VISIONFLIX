@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<main class="bg-dark text-white">
+
+
+    <section class="movie-hero d-flex align-items-end"
+        style="background-image: url('https://image.tmdb.org/t/p/original{{ random_movie.backdrop}}');">
+
+        <div class="container pb-5">
+            <h1 class="display-4 fw-bold mb-3">
+                {{random_movie.title}}
+            </h1>
+            <p class="col-md-6 mb-4">
+                {{random_movie.description}}
+            </p>
+            <p class="col-md-2 mb-1 fw-bolder">
+                ⭐{{random_movie.rating}} / 10
+            </p>
+            <p class="col-md- 6 mb-4 fw-bolder">
+                Genre: <span class="fw-lighter">{{random_movie.genre}}</span>
+            </p>
+            <div class="d-flex gap-3">
+                <a href="{% static 'assets/videos/LEO-Badass.mp4' %}" class="btn btn-light  ms-1 btn-lg">
+                    ▶ Play
+                </a>
+                <a class="nav-link" href="{% url 'Visionapp:add_list' random_movie.uuid  %}">
+                    <button class="btn btn-secondary text-light btn-lg">
+                        My List<i class="bi bi-plus-lg fw-bolder ms-1"></i>
+                    </button>
+
+                </a>
+                <a class="nav-link" href="{% url 'Visionapp:movie-detail' movie_id=random_movie.uuid %}">
+                    <button class="btn btn-danger btn-lg ">
+                        More <i class="bi  bi-info-circle-fill"></i>
+                    </button>
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="py-5 bg-dark">
+
+        <div class="container  ">
+
+            <!-- <h2 class="mb-4">
+                Popular on Netflix
+            </h2>
+
+            <div class="row g-4">
+                {% for movie in movies %}
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <a href="{% url 'Visionapp:movie-detail' movie_id=movie.uuid %}">
+                        <div class="movie-card">
+                            <img src="https://image.tmdb.org/t/p/w500{{ movie.poster }}" class="img-fluid rounded">
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div> -->
+            <h3 class="mt-5 fw-bold">Trending</h3>
+            <div class="d-flex  movie-row gap-3">
+                {% for movie in trending %}
+                <a href="{% url 'Visionapp:movie-detail' movie_id=movie.uuid %}">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster }}"
+                        style="height:220px;border-radius:6px;">
+                </a>
+                {% endfor %}
+            </div>
+            <h3 class="mt-5 fw-bold">Top Rated</h3>
+            <div class="d-flex  movie-row  gap-3">
+                {% for movie in top_rated %}
+                <a href="{% url 'Visionapp:movie-detail' movie_id=movie.uuid %}">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster }}"
+                        style="height:220px;border-radius:6px;">
+                </a>
+                {% endfor %}
+            </div>
+            <h3 class="mt-5 fw-bold ">Action</h3>
+            <div class="d-flex  movie-row  gap-3">
+                {% for movie in action_movies %}
+                <a href="{% url 'Visionapp:movie-detail' movie_id=movie.uuid %}">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster }}"
+                        style="height:220px;border-radius:6px;">
+                </a>
+                {% endfor %}
+            </div>
+            <h3 class="mt-5 fw-bold">Comedy</h3>
+            <div class="d-flex  movie-row  gap-3">
+                {% for movie in comedy_movies %}
+                <a href="{% url 'Visionapp:movie-detail' movie_id=movie.uuid %}">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster }}"
+                        style="height:220px;border-radius:6px;">
+                </a>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}

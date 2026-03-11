@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="movie-hero d-flex align-items-end "
+    style="background-image: url('https://image.tmdb.org/t/p/original{{ random_movie.backdrop}}');">
+    <div class="container pb-5 mt-5 text-light">
+
+        <h1 class="display-4 fw-bold mb-3">
+            {{ random_movie.title }}
+        </h1>
+
+        <p class="col-md-6 mb-3">
+            {{random_movie.description }}
+        </p>
+        <p class="col-md-2 mb-1 fw-bolder">
+            ⭐{{random_movie.rating}} / 10
+        </p>
+        <p class="col-md- 6 mb-4 fw-bolder">
+            Genre: <span class="fw-lighter">{{random_movie.genre}}</span>
+        </p>
+
+        <div class="d-flex gap-4">
+            <a href="{% static 'assets/videos/LEO-Badass.mp4'%}" class="btn btn-light btn-lg">
+                ▶ Play
+            </a>
+            <a class="nav-link" href="{% url 'Visionapp:add_list' random_movie.uuid  %}">
+                <button class="btn btn-secondary text-light btn-lg">
+                    My List<i class="bi bi-plus-lg fw-bolder ms-1"></i>
+                </button>
+
+            </a>
+            <a class="nav-link" href="{% url 'Visionapp:movie-detail' movie_id=random_movie.uuid %}">
+                <button class="btn btn-danger btn-lg ">
+                  More  <i class="bi  bi-info-circle-fill"></i>
+                </button>
+            </a>
+
+        </div>
+
+
+
+
+    </div>
+
+</section>
+<div style="margin-top: 100px;" class="container">
+
+    {% if movies %}
+    <div class="text-light mb-4 fw-bolder fs-4">{% if movies.0.language == "en" %}English
+        {% elif movies.0.language == "ta" %}Tamil
+        {% elif movies.0.language == "ml" %}Malayalam
+        {% elif movies.0.language == "te" %}Telugu
+        {% elif movies.0.language == "hi" %}Hindi
+        {% else %}Other
+        {% endif %} Movies</div>
+    <a href="">
+        <div class="row">
+
+            {% for movie in movies %}
+            <div class="col-md-2 mb-4 text-light">
+                <a class="nav-link" href="{% url 'Visionapp:movie-detail' movie.uuid %}">
+                    <div class="card bg-dark text-white">
+
+                        <img src="https://image.tmdb.org/t/p/w500{{ movie.poster }}"
+                            style="height:220px;border-radius:6px;">
+
+
+                    </div>
+
+                </a>
+            </div>
+    </a>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<h3 class="text-light text-center mt-5">Movies not found</h3>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

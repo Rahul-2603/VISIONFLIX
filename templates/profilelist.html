@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="profile-bg text-white">
+
+    <div class="container text-center py-5">
+
+        <h1 class="mb-5">
+            Who's Watching?
+        </h1>
+
+        <div class="row justify-content-center">
+
+            {% for profile in profiles %}
+
+            <div class="col-6 col-md-3 mb-4">
+
+                <a href="{% url 'Visionapp:set_profile' profile.uuid  %}" class="text-decoration-none">
+
+                    <div class="profile-card">
+
+                        <div class="profile-avatar">
+
+                            {{ profile.name|slice:":1" }}
+
+                        </div>
+
+                        <p class="mt-2 text-light">
+                            {{ profile.name }}
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <a href="{% url 'Visionapp:profile-create' %}" class="btn btn-secondary mt-4">
+            Add New Profile
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

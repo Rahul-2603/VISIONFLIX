@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+
+{% block content%}
+
+
+
+<div class="container-fluid">
+    <div class="row m-auto">
+
+        {% for m in movies %}
+
+        <div class="col-md-2 m-3 ">
+
+
+            <div class="card c bg-dark text-white m-3" style="width:200px">
+                <a class="nav-link" href="{% url 'Visionapp:movie-detail' movie_id=m.movie.uuid %}">
+
+
+                    <img src="https://image.tmdb.org/t/p/w500{{ m.movie.poster }}" class="card-img-top">
+
+
+                </a>
+                <div class="ho">
+                    <a class="nav-link" href="{% url 'Visionapp:del_list' m.movie.uuid %}">
+                        <h6 class="text-center"><i class="bi text-danger bi-trash3 "></i></h6>
+                    </a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+        {% endfor %}
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+{% endblock%}

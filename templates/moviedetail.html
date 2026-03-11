@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="bg-dark text-white">
+
+    <!-- Hero Section -->
+    <section class="movie-hero d-flex align-items-end"
+        style="background-image: url('https://image.tmdb.org/t/p/original{{ movie.backdrop}}');">
+
+
+        <div class="container pb-5">
+
+            <h1 class="display-4 fw-bold  mb-1">
+                {{ movie.title }}
+            </h1>
+
+            <p class="col-md-6 mb-4 fw-bolder">
+                {{ movie.description }}
+            </p>
+            <p class="col-md-2 mb-1 fw-bolder">
+                ⭐ {{movie.rating}} / 10
+            </p>
+            <p class="col-md- 6 mb-4 fw-bolder">
+                Genre: <span class="fw-lighter">{{movie.genre}}</span>
+            </p>
+
+            <div class="d-flex gap-2">
+
+                <a href="{%  static 'assets/videos/LEO-Badass.mp4' %}" class="btn btn-light mt-3 ms-1 btn-lg">
+                    ▶ Play
+                </a>
+
+                <a class="nav-link block" href="{% url 'Visionapp:add_list' movie.uuid  %}">
+                    <button class="btn btn-secondary text-light ms-2 mt-3 btn-lg">
+                        My List<i class="bi bi-plus-lg fw-bolder ms-1"></i>
+                    </button>
+
+                </a>
+
+            </div>
+
+
+
+
+        </div>
+
+    </section>
+
+
+    <section class="py-5 bg-dark">
+
+        <div class="container">
+
+            <h2 class="mb-4 fw-bolder">
+                Description
+            </h2>
+
+            <p class="lead">
+                {{ movie.description }}
+            </p>
+
+
+            {% if cast %}
+            <h3 class="mt-5 fw-bolder mb-4">Cast</h3>
+
+            <div class="d-flex gap-4 flex-wrap">
+                {% for actor in cast %}
+                <div class="text-center">
+                    <img src="https://image.tmdb.org/t/p/w185{{ actor.image }}"
+                        style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
+                    <p class="mt-2">{{ actor.name }}</p>
+                    <small class="text-secondary">{{ actor.character }}</small>
+                </div>
+                {% endfor %}
+
+            </div>
+            {% endif %}
+
+        </div>
+        <!-- <div class="container">
+
+            <h3 class="mt-5">Popular on Visionflix</h3>
+
+            <div class="d-flex movie-row gap-3">
+
+                {% for movie in movies %}
+
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.poster }}"
+                    style="height:220px;border-radius:6px;cursor:pointer;">
+
+                {% endfor %}
+
+            </div>
+        </div> -->
+    </section>
+
+
+</main>
+
+
+
+
+{% endblock %}
