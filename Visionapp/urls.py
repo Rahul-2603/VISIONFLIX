@@ -13,7 +13,6 @@ urlpatterns = [
     path('profiles/create/', profile_create, name='profile-create'),
     path('movie/<uuid:movie_id>/', movie_detail, name='movie-detail'),
     path('play/<uuid:movie_id>/', play_movie, name='play-movie'),
-   
     path('set_profile/<uuid:profile_id>/',set_profile,name='set_profile'),
     path('Mylist/',my_list,name='Mylist'),
     path('add_list/<uuid:movie_id>/',add_list,name='add_list'),
