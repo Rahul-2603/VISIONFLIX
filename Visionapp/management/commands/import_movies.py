@@ -57,7 +57,7 @@ class Command(BaseCommand):
                     if not m.get("poster_path") or not m.get("backdrop_path"):
                         continue
 
-                    movie = Movie.objects.create(
+                    movie = Movie.objects.get_or_create(
                         title=m["title"],
                         description=m["overview"],
                         poster=m["poster_path"],
