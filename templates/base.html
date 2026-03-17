@@ -69,15 +69,16 @@
                     <a href="{% url 'Visionapp:Mylist' %}" class="nav-link text-light text-center">
                         <i class="bi bi-star-fill text-danger fs-5"></i>
                         <div style="font-size:12px;">My List</div>
+
                     </a>
 
-                    <a href="{% url 'account_logout' %}" class="btn btn-danger">
+                    <a href="{% url 'account_logout' %}" class="btn btn-danger me-2 ms-auto ">
                         Logout
                     </a>
 
                     {% else %}
 
-                    <a href="{% url 'account_login' %}" class="btn btn-danger">
+                    <a href="{% url 'account_login' %}" class="btn btn-danger  me-2 ms-auto py">
                         Sign In
                     </a>
 
